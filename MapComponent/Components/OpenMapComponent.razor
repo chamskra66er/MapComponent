@@ -1,0 +1,19 @@
+﻿
+<div id="map" style="height: 400px;"></div>
+
+@code {
+    private string mapApiKey = "YOUR_API_KEY";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await InitializeMapAsync();
+        }
+    }
+
+    private async Task InitializeMapAsync()
+    {
+        //await JSRuntime.InvokeAsync<object>("initializeMap", "map", mapApiKey);
+    }
+}
