@@ -1,19 +1,31 @@
-﻿
-<div id="map" style="height: 400px;"></div>
+﻿@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<div>MapComponentPage</div>
+<div id="map" style="width:600px; height:400px;"></div>
 
 @code {
-    private string mapApiKey = "YOUR_API_KEY";
+    private IJSObjectReference module;
+    private string? result;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await InitializeMapAsync();
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/leafletmap.js");
+
+            if (module!=null)
+            { 
+                result = await module.InvokeAsync<string>("InitializeMap", "");
+            }
         }
     }
 
-    private async Task InitializeMapAsync()
+    async ValueTask IAsyncDisposable.DisposeAsync()
     {
-        //await JSRuntime.InvokeAsync<object>("initializeMap", "map", mapApiKey);
+        if (module is not null)
+        {
+            await module.DisposeAsync();
+        }
     }
 }
