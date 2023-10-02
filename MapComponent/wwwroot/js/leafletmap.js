@@ -1,4 +1,4 @@
-﻿export function InitializeMap(message)
+﻿export function InitializeMap(users, width, height)
 {
     var map = L.map('map').setView([52.1267722, 28.4919521], 7);
 

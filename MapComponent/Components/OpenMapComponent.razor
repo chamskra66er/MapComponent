@@ -2,11 +2,20 @@
 @implements IAsyncDisposable
 
 <div>MapComponentPage</div>
-<div id="map" style="width:600px; height:400px;"></div>
+<div id="map" style="width:@Width; height:@Height;"></div>
 
 @code {
     private IJSObjectReference module;
     private string? result;
+
+    [Parameter]
+    public IEnumerable<IUser> Users { get; set; }
+
+    [Parameter]
+    public string Width { get; set; } = "600px";
+
+    [Parameter]
+    public string Height { get; set; } = "400px";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -16,7 +25,7 @@
 
             if (module!=null)
             { 
-                result = await module.InvokeAsync<string>("InitializeMap", "");
+                result = await module.InvokeAsync<string>("InitializeMap", Users);
             }
         }
     }
