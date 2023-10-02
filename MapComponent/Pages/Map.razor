@@ -1,11 +1,17 @@
 ﻿@page "/map"
 
-@inject SystemPersons sysPer
+@inject HttpClient Http
 
 
 <PageTitle>OpenMap</PageTitle>
 <div>MapPage</div>
-<MapComponent.Components.OpenMapComponent/>
+<MapComponent.Components.OpenMapComponent Users="users" />
 
 @code{
+    private IEnumerable<IUser>? users;
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await Http.GetFromJsonAsync<IEnumerable<User>>("sample-data/syspers.json");
+    }
 }

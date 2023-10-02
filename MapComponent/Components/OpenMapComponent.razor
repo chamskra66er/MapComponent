@@ -5,11 +5,11 @@
 <div id="map" style="width:@Width; height:@Height;"></div>
 
 @code {
-    private IJSObjectReference module;
+    private IJSObjectReference? module;
     private string? result;
 
     [Parameter]
-    public IEnumerable<IUser> Users { get; set; }
+    public IEnumerable<IUser>? Users { get; set; }
 
     [Parameter]
     public string Width { get; set; } = "600px";
