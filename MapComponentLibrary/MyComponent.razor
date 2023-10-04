@@ -1,0 +1,51 @@
+﻿@implements IAsyncDisposable;
+@using Microsoft.JSInterop;
+@using MapComponentLibrary.Data;
+@inject IJSRuntime JSRuntime;
+
+<head>
+    <script src="./leaflet.js"></script>
+</head>
+
+<h3>MyComponent</h3>
+<div>MapComponentPage</div>
+<div id="map" style="width:@Width; height:@Height;"></div>
+
+
+@code {
+    [Parameter]
+    public IEnumerable<IUser>? Users { get; set; }
+
+    [Parameter]
+    public string Width { get; set; } = "600px";
+
+    [Parameter]
+    public string Height { get; set; } = "400px";
+
+    [Parameter]
+    public int Zoom { get; set; } = 7;
+
+    private IJSObjectReference? module;
+    private string? result;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./leafletmap.js");
+
+            if (module != null)
+            {
+                result = await module.InvokeAsync<string>("InitializeMap", Users, Zoom);
+            }
+        }
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            await module.DisposeAsync();
+        }
+    }
+}

@@ -13,4 +13,8 @@
     <PackageReference Include="Syncfusion.Blazor.Maps" Version="23.1.38" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MapComponentLibrary\MapComponentLibrary.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,17 @@
+﻿@page "/mappack"
+
+@inject HttpClient Http
+
+<PageTitle>OpenMappack</PageTitle>
+
+<MapComponentLibrary.MyComponent Height="400px" Width="600px" Users="users"/>
+
+@code{
+
+    private IEnumerable<MapComponentLibrary.Data.IUser>? users;
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await Http.GetFromJsonAsync<IEnumerable<MapComponentLibrary.Data.SystemUser>>("sample-data/syspers.json");
+    }
+}
