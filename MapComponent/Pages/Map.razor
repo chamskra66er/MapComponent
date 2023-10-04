@@ -5,7 +5,11 @@
 
 <PageTitle>OpenMap</PageTitle>
 <div>MapPage</div>
-<MapComponent.Components.OpenMapComponent Users="users" />
+<MapComponent.Components.OpenMapComponent 
+    Users="users"
+    Height="500px"
+    Width="700px"
+    Zoom="10"/>
 
 @code{
     private IEnumerable<IUser>? users;

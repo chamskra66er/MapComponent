@@ -17,6 +17,9 @@
     [Parameter]
     public string Height { get; set; } = "400px";
 
+    [Parameter]
+    public int Zoom { get; set; } = 7;
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -25,7 +28,7 @@
 
             if (module!=null)
             { 
-                result = await module.InvokeAsync<string>("InitializeMap", Users);
+                result = await module.InvokeAsync<string>("InitializeMap", Users, Zoom);
             }
         }
     }
